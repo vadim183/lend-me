@@ -16,13 +16,15 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "filesGlob": [
     "**/*.ts"
   ],
   "include": [
-    "src/**/*", "../../client/src/domain/items/items.service.ts", "../../client/src/domain/items/items..service.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"

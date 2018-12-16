@@ -19,6 +19,7 @@
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "paths": {
       "@domain/*": ["src/domain/*"],
       "@store/*": ["src/store/*"],
@@ -33,7 +34,7 @@
   ],
   "include": [
     "images.d.ts",
-    "src/**/*", "../services/items/src/server.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

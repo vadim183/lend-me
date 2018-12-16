@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import * as express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import express = require('express');
 
 import { ItemsTypeDefs } from './items.typeDefs';
 import { ItemsResolveres } from './items.resolvers';

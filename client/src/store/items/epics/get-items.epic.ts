@@ -3,7 +3,7 @@ import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { ItemsQueryInput } from '../../../../../contracts/items';
+import { ItemsQueryInput } from '@lend-me/api';
 import { ItemsService } from '@domain/index';
 import { StoreState } from '@store/store-state.models';
 

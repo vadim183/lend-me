@@ -1,8 +1,8 @@
 {
   "packages": [
-    "client",
-    "api",
-    "services/*"
+    "client/",
+    "api/",
+    "services/items/"
   ],
   "version": "independent"
 }
