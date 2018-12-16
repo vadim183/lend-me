@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Item, ItemsQueryInput } from '../../../../../contracts/items';
+import { Item, ItemsQueryInput } from '@lend-me/api';
 import { HttpClient } from '../../core/http/index';
 
 const API_URL = 'https://jsonplaceholder.typicode.com';

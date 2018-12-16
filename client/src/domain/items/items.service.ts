@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Item, ItemsQueryInput } from '../../../../contracts/items';
+import { Item, ItemsQueryInput } from '@lend-me/api';
 import { GraphqlClient } from '@core/graphql';
 import { ItemViewModel } from './items.models';
 

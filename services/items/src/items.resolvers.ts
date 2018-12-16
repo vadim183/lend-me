@@ -1,4 +1,4 @@
-import { ItemsQueryInput } from '../../../contracts/items';
+import { ItemsQueryInput } from '@lend-me/api';
 
 import { ItemsContext } from './items.context';
 
