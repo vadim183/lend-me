@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { forkJoin, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Item, ItemsQueryInput } from '@lend-me/api';
-import { HttpClient } from '../../core/http/index';
+import { HttpClient } from '../core';
+import { ItemSchema } from './item.schma';
+import { CollectionProvider } from '../core/mongo/collection-provider';
 
 const API_URL = 'https://jsonplaceholder.typicode.com';
-
-const ITEMS_API_URL = `${API_URL}/todos`;
 
 const PHOTOS_API_URL = `${API_URL}/photos`;
 
@@ -21,15 +21,24 @@ interface PhotoDTO {
 }
 
 @injectable()
-export class ItemsService {
-  constructor(private readonly httpClient: HttpClient) {}
+export class ItemsEngine {
+  private itemsCollection: CollectionProvider<ItemDTO>;
+
+  constructor(private readonly httpClient: HttpClient) {
+    this.itemsCollection = new CollectionProvider('Item', ItemSchema);
+  }
 
   public getItems(input: ItemsQueryInput): Promise<Item[]> {
-    let items$ = this.httpClient.get<ItemDTO[]>(ITEMS_API_URL);
+    let items$ = this.itemsCollection.getAll();
     let photos$ = this.httpClient.get<PhotoDTO[]>(PHOTOS_API_URL);
 
     return forkJoin(items$, photos$)
-      .pipe(map(result => this.mapToItems(result, input)))
+      .pipe(
+        map(result => this.mapToItems(result, input)),
+        catchError((error: Error) => {
+          throw error;
+        })
+      )
       .toPromise();
   }
 

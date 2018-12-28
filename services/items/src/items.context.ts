@@ -1,11 +1,11 @@
-import { ItemsService } from './domain/items/items.service';
+import { ItemsEngine } from './domain/items.engine';
 
-import { itemsApiService } from './items.composition-root';
+import { itemsEngine } from './items.composition-root';
 
 export interface ItemsContext {
-  itemsApiService: ItemsService;
+  itemsEngine: ItemsEngine;
 }
 
 export const itemsContext: ItemsContext = {
-  itemsApiService
+  itemsEngine
 };

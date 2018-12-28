@@ -1,10 +1,10 @@
 import { ContainerModule, interfaces } from 'inversify';
 
-import { ItemsService } from './items';
+import { ItemsEngine } from './items.engine';
 
 export const DomainContainerModule = new ContainerModule(
   (bind: interfaces.Bind) => {
-    bind<ItemsService>(ItemsService)
+    bind<ItemsEngine>(ItemsEngine)
       .toSelf()
       .inSingletonScope();
   }

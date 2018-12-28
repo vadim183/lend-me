@@ -11,7 +11,7 @@ export class HttpClient {
         .then(reponse => {
           return reponse.json();
         })
-        .catch((reason: any) => {
+        .catch(reason => {
           throw new Error(reason);
         })
     );

@@ -1,10 +1,11 @@
 import { Container } from 'inversify';
 
-import { CoreContainerModule } from './core/index';
-import { DomainContainerModule, ItemsService } from './domain/index';
+import { CoreContainerModule, MongoDbProvider } from './core';
+import { DomainContainerModule, ItemsEngine } from './domain';
 
 const resolvesContainer = new Container();
 
 resolvesContainer.load(CoreContainerModule, DomainContainerModule);
 
-export const itemsApiService = resolvesContainer.resolve(ItemsService);
+export const itemsEngine = resolvesContainer.resolve(ItemsEngine);
+export const dbProvider = resolvesContainer.resolve(MongoDbProvider);
