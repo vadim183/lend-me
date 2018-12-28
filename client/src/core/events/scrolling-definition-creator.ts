@@ -1,4 +1,6 @@
 import { injectable } from 'inversify';
+import { Subscription, fromEvent } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
 
 import { EventDefinition } from './event-definition.model';
 
@@ -15,12 +17,16 @@ export class ScrollingDefinitionCreator {
     let wrappedElement = scrollingElement.firstChild as Element;
     let eventCallback = () => this.trackScrolling(wrappedElement, action);
 
+    let eventSubscription: Subscription;
+
     return {
       setup: () => {
-        scrollingElement.addEventListener(SCROLL_EVENT, eventCallback);
+        eventSubscription = fromEvent(scrollingElement, SCROLL_EVENT)
+          .pipe(throttleTime(250))
+          .subscribe(eventCallback);
       },
       destroy: () => {
-        scrollingElement.removeEventListener(SCROLL_EVENT, eventCallback);
+        eventSubscription.unsubscribe();
       }
     };
   }
