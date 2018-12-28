@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { Item, ItemsQueryInput } from '@lend-me/api';

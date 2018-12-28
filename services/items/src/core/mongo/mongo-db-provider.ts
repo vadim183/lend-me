@@ -6,22 +6,26 @@ mongoose.Promise = global.Promise;
 const CONNECTION_URL =
   'mongodb://vadims:vadims123@ds145043.mlab.com:45043/lend-me-db-items';
 
-mongoose.connect(CONNECTION_URL);
-
 @injectable()
 export class MongoDbProvider {
-  provideConnection() {
-    mongoose.connect(
-      CONNECTION_URL,
-      { useNewUrlParser: true }
-    );
+  async provideConnection() {
+    return new Promise((resolve, reject) => {
+      mongoose.connect(
+        CONNECTION_URL,
+        { useNewUrlParser: true }
+      );
 
-    let db = mongoose.connection;
+      let db = mongoose.connection;
 
-    db.on('error', error =>
-      console.error('Error connecting to database:', error)
-    );
+      db.on('error', error => {
+        console.error('Error connecting to database:', error);
+        reject();
+      });
 
-    db.once('open', () => console.info('Successfully connected to database.'));
+      db.once('open', () => {
+        console.info('Successfully connected to database.');
+        resolve();
+      });
+    });
   }
 }
