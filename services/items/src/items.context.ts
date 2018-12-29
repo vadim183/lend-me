@@ -1,11 +1,11 @@
-import { ItemsEngine } from './domain/items.engine';
+import { ItemListEngine } from './list/item-list.engine';
 
 import { itemsEngine } from './items.composition-root';
 
 export interface ItemsContext {
-  itemsEngine: ItemsEngine;
+  itemListEngine: ItemListEngine;
 }
 
-export const itemsContext: ItemsContext = {
-  itemsEngine
+export const enginesContext: ItemsContext = {
+  itemListEngine: itemsEngine
 };

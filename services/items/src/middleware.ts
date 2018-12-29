@@ -1,7 +1,7 @@
-import Application from 'koa';
+import { ApplicationContext } from './application-context';
 
 export const logRequest = async (
-  ctx: Application.Context,
+  ctx: ApplicationContext,
   next: () => Promise<any>
 ) => {
   let start = Date.now();
@@ -10,9 +10,7 @@ export const logRequest = async (
 
   let responseTime = Date.now() - start;
 
-  console.info(
-    `[${start}] From: ${ctx.method}:${
-      ctx.url
-    }. Response took ${responseTime} ms`
+  ctx.logger.info(
+    `From: ${ctx.method}:${ctx.url}. Response took ${responseTime} ms`
   );
 };

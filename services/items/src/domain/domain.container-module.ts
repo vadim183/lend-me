@@ -1,11 +1,12 @@
 import { ContainerModule, interfaces } from 'inversify';
 
-import { ItemsEngine } from './items.engine';
+import { CollectionAdapter } from '../core';
+import { ITEMS_REPOSITORY_TOKEN, itemSchema, ItemDTO } from './item-dto';
 
-export const DomainContainerModule = new ContainerModule(
+export const domainContainerModule = new ContainerModule(
   (bind: interfaces.Bind) => {
-    bind<ItemsEngine>(ItemsEngine)
-      .toSelf()
-      .inSingletonScope();
+    bind<CollectionAdapter<ItemDTO>>(ITEMS_REPOSITORY_TOKEN).toConstantValue(
+      new CollectionAdapter('Item', itemSchema)
+    );
   }
 );

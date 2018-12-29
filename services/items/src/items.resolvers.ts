@@ -6,7 +6,7 @@ interface ItemsQueryArgs {
   input: ItemsQueryInput;
 }
 
-export const ItemsResolvers = {
+export const itemsResolvers = {
   Query: {
     items: (
       _: unknown,
@@ -14,7 +14,7 @@ export const ItemsResolvers = {
       context: ItemsContext,
       __: unknown
     ) => {
-      return context.itemsEngine.getItems(args.input);
+      return context.itemListEngine.getItems(args.input);
     }
   }
 };

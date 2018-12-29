@@ -1,24 +1,32 @@
 import 'reflect-metadata';
 
-import { ApolloServer } from 'apollo-server-koa';
+import {
+  ApolloServer,
+  mergeSchemas,
+  makeExecutableSchema
+} from 'apollo-server-koa';
 import Koa = require('koa');
 
 import { ITEMS_SERVICE_PORT } from '@lend-me/api';
 
-import { ItemsTypeDefs } from './items.typeDefs';
-import { ItemsResolvers } from './items.resolvers';
-import { itemsContext } from './items.context';
-import { dbProvider } from './items.composition-root';
+import { itemsTypeDefs } from './items.typeDefs';
+import { itemsResolvers } from './items.resolvers';
+import { enginesContext } from './items.context';
+import { dbProvider, logger } from './items.composition-root';
 import { routes } from './routes';
 import { logRequest } from './middleware';
 
 const startServer = async () => {
   await dbProvider.provideConnection();
 
+  const schema = mergeSchemas({
+    schemas: [makeExecutableSchema({ typeDefs: itemsTypeDefs })],
+    resolvers: itemsResolvers
+  });
+
   const server = new ApolloServer({
-    typeDefs: ItemsTypeDefs,
-    resolvers: ItemsResolvers,
-    context: itemsContext
+    schema,
+    context: enginesContext
   });
 
   const app = new Koa();
@@ -26,6 +34,8 @@ const startServer = async () => {
   server.applyMiddleware({
     app
   });
+
+  app.context.logger = logger;
 
   app
     .use(logRequest)
